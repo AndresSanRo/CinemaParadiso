@@ -16,9 +16,10 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
-<body>
+<body class="bg-dark">
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <img src="~/images/icons/popcorn32px.png" />
         <a class="navbar-brand" href="#">Cinema paradiso</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -51,7 +52,7 @@
         </div>
     </nav>
 
-    <main role="main" class="container">
+    <main role="main" class="container text-white">
 
         @RenderBody()
 

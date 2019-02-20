@@ -5,13 +5,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CinemaParadiso.Models;
+using TMDbLib.Client;
+using Microsoft.Extensions.Configuration;
+using TMDbLib.Objects.Movies;
+using TMDbLib.Objects.Discover;
+using TMDbLib.Objects.General;
+using TMDbLib.Objects.Search;
 
 namespace CinemaParadiso.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+          
+        public HomeController()
         {
+                        
+        }
+        public IActionResult Index()
+        {            
             return View();
         }
 
