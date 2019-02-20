@@ -5,25 +5,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CinemaParadiso.Models;
-using TMDbLib.Client;
 using Microsoft.Extensions.Configuration;
-using TMDbLib.Objects.Movies;
-using TMDbLib.Objects.Discover;
-using TMDbLib.Objects.General;
-using TMDbLib.Objects.Search;
+using Newtonsoft.Json;
+using Movie = CinemaParadiso.Models.Movie;
 
 namespace CinemaParadiso.Controllers
 {
     public class HomeController : Controller
     {
-          
-        public HomeController()
+        MovieClient client;
+        public HomeController(MovieClient client)
         {
-                        
+            this.client = client;  
         }
         public IActionResult Index()
-        {            
-            return View();
+        {
+            string response = client.GetMovie("550").Result;
+            Movie movie = (Movie)JsonConvert.DeserializeObject<Movie>(response);
+            return View(movie);
         }
 
         public IActionResult About()

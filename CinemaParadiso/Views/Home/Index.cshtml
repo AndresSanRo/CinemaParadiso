@@ -1,29 +1,10 @@
-﻿@using TMDbLib.Objects.Movies;
-@*@model List<String>*@
-@model Movie
+﻿@model List<Movie>
+@*@model String*@
 @{
     ViewData["Title"] = "Index";
 }
 
 <h2>Index</h2>
-<ul>
-    <li>
-        @Model.Title
-    </li>
-    <li>
-        @Model.Genres.ToString()
-    </li>
-    <li>
-        @Model.Adult
-    </li>
-    <li>
-        @Model.Id
-    </li>
-    <li>
-        @Model.Similar
-    </li>
-    @*@foreach (string s in Model)
-    {
-        <li>s</li>
-    }*@
-</ul>
+<p>
+    @Model
+</p>
