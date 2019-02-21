@@ -1,5 +1,5 @@
 ﻿
-@model List<Movie>
+@model Movie
 @*@model String*@
 @{
     ViewData["Title"] = "Index";
@@ -7,21 +7,7 @@
 
 <h2>Index</h2>
 
-@foreach (Movie m in Model)
-{
-    <p>@m.Title</p>
-    <p>@m.Overview</p>
-    <p>@m.VoteAverage</p>
-    <p>@m.ReleaseDate.ToShortDateString()</p>
-    <img src="@String.Concat(Movie.ImagesPath, m.Poster)" />
-    @foreach (Genre genre in m.Genres)
-    {
-        <p>@genre.Name</p>
-    }
-    <ul>
-        @foreach(Cast actor in m.People.Cast)
-        {
-            <li>@actor.Character (@actor.Name)</li>
-        }
-    </ul>
-}
+<div>
+    <a asp-action="Movie" asp-controller="home" asp-route-id="28">El club de la lucha</a>
+</div>
+   

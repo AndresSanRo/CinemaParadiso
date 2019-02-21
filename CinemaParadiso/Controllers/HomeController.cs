@@ -19,35 +19,14 @@ namespace CinemaParadiso.Controllers
             this.client = client;  
         }
         public IActionResult Index()
-        {
-            string response = client.GetMovie("550").Result;            
-            List<Movie> movie = JsonConvert.DeserializeObject<List<Movie>>(response);                      
-            return View(movie);            
+        {                                    
+            return View();            
         }
 
-        public IActionResult About()
+        public IActionResult Movie(int id)
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            Movie movie = client.GetMovie(id).Result;
+            return View(movie);
         }
     }
 }
