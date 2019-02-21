@@ -27,7 +27,7 @@ namespace CinemaParadiso.Models
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));                
                 HttpResponseMessage response = await httpClient.GetAsync(requestPath);
                 String responseString = await response.Content.ReadAsStringAsync();
-                return responseString;
+                return "[" + responseString + "]";
             }
         }
     }

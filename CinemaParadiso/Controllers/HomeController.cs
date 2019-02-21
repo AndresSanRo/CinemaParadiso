@@ -21,8 +21,15 @@ namespace CinemaParadiso.Controllers
         public IActionResult Index()
         {
             string response = client.GetMovie("550").Result;
-            Movie movie = (Movie)JsonConvert.DeserializeObject<Movie>(response);
-            return View(movie);
+            //System.Diagnostics.Debug.WriteLine(response);
+            //string json = "[{title:'John Simith',overview:35},{title:'Pablo Perez',overview:34}]";
+            List<Movie> movie = (List<Movie>)JsonConvert.DeserializeObject<List<Movie>>(response);
+            //String[] cadena = (String[])JsonConvert.DeserializeObject(response);
+            //var query = from datos in response
+            //            select new Movie {
+            //                Title = datos.
+            //            };            
+            return View(movie);            
         }
 
         public IActionResult About()
