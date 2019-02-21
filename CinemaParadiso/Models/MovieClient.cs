@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CinemaParadiso.Providers;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,21 @@ namespace CinemaParadiso.Models
                 List<Movie> movies = JsonConvert.DeserializeObject<List<Movie>>(responseString);
                 return movies.First();
             }
-        }        
+        }
+        public async Task<List<Movie>> DiscoverMovies(Sort sortMethod, IncludeAdult option)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                string requestPath = "discover/movie/?" + this.Language + "&sort_by=" + DiscoverProvider.SortBy(sortMethod) + "&include_adult=" + DiscoverProvider.AdultMovies(option) + "&api_key=" + configuration["apiKey"];
+                httpClient.BaseAddress = new Uri(this.URI);
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = await httpClient.GetAsync(requestPath);
+                String responseString = await response.Content.ReadAsStringAsync();
+                responseString = "[" + responseString + "]";
+                List<Movie> movies = JsonConvert.DeserializeObject<List<Movie>>(responseString);
+                return movies;
+            }
+        }
     }
 }
