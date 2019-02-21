@@ -32,7 +32,7 @@ namespace CinemaParadiso.Models
                 String responseString = await response.Content.ReadAsStringAsync();
                 responseString =  "[" + responseString + "]";
                 List<Movie> movies = JsonConvert.DeserializeObject<List<Movie>>(responseString);
-                return movies[0];
+                return movies.First();
             }
         }        
     }
