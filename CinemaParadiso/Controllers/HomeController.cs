@@ -28,5 +28,6 @@ namespace CinemaParadiso.Controllers
             Movie movie = client.GetMovie(id).Result;
             return View(movie);
         }
+        
     }
 }
