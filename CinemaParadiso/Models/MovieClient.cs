@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace CinemaParadiso.Models
             Language = "language=es";
             this.configuration = configuration;
         }
-        public async Task<string> GetMovie(string idMovie)
+        public async Task<Movie> GetMovie(int idMovie)
         {
             using (HttpClient httpClient = new HttpClient())
             {
@@ -29,21 +30,10 @@ namespace CinemaParadiso.Models
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));                
                 HttpResponseMessage response = await httpClient.GetAsync(requestPath);
                 String responseString = await response.Content.ReadAsStringAsync();
-                return "[" + responseString + "]";
+                responseString =  "[" + responseString + "]";
+                List<Movie> movies = JsonConvert.DeserializeObject<List<Movie>>(responseString);
+                return movies[0];
             }
-        }
-        public async Task<string> GetConfig()
-        {
-            using (HttpClient httpClient = new HttpClient())
-            {
-                string requestPath = "configuration/api_key=" + configuration["apiKey"];
-                httpClient.BaseAddress = new Uri(this.URI);
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = await httpClient.GetAsync(requestPath);
-                String responseString = await response.Content.ReadAsStringAsync();
-                return "[" + responseString + "]";
-            }
-        }
+        }        
     }
 }
