@@ -11,4 +11,10 @@
 {
     <p>@m.Title</p>
     <p>@m.Overview</p>
+    <p>@m.VoteAverage</p>
+    <p>@m.ReleaseDate.ToShortDateString()</p>
+    @foreach (Genre genre in m.Genres)
+    {
+        <p>@genre.Name</p>
+    }
 }

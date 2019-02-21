@@ -8,9 +8,18 @@ namespace CinemaParadiso.Models
 {
     public class Movie
     {
+        [JsonProperty("id")]
+        public int ID { get; set; }
         [JsonProperty("title")]
         public String Title { get; set; }
         [JsonProperty("overview")]
-        public String Overview { get; set; }
+        public String Overview { get; set; }        
+        [JsonProperty("vote_average")]
+        public double VoteAverage { get; set; }
+        [JsonProperty("release_date")]
+        public DateTime ReleaseDate { get; set; }
+        [JsonProperty("genres")]
+        [JsonConverter(typeof(SingleOrArrayConverter<Genre>))]
+        public List<Genre> Genres { get; set; }
     }
 }

@@ -23,7 +23,7 @@ namespace CinemaParadiso.Controllers
             string response = client.GetMovie("550").Result;
             //System.Diagnostics.Debug.WriteLine(response);
             //string json = "[{title:'John Simith',overview:35},{title:'Pablo Perez',overview:34}]";
-            List<Movie> movie = (List<Movie>)JsonConvert.DeserializeObject<List<Movie>>(response);
+            List<Movie> movie = JsonConvert.DeserializeObject<List<Movie>>(response);
             //String[] cadena = (String[])JsonConvert.DeserializeObject(response);
             //var query = from datos in response
             //            select new Movie {
