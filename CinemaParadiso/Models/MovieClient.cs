@@ -10,18 +10,20 @@ namespace CinemaParadiso.Models
 {    
     public class MovieClient
     {
-        public String URI { get; } 
+        public String URI { get; }
+        public String Language { get; set; }
         IConfiguration configuration;        
         public MovieClient(IConfiguration configuration)
         {
             URI = "https://api.themoviedb.org/3/";
+            Language = "language=es";
             this.configuration = configuration;
         }
         public async Task<string> GetMovie(string idMovie)
         {
             using (HttpClient httpClient = new HttpClient())
             {
-                string requestPath = "movie/" + idMovie + "?api_key=" + configuration["apiKey"];
+                string requestPath = "movie/" + idMovie + "?" + this.Language + "&api_key=" + configuration["apiKey"];
                 httpClient.BaseAddress = new Uri(this.URI);
                 httpClient.DefaultRequestHeaders.Accept.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));                
