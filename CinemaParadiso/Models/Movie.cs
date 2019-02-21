@@ -18,8 +18,17 @@ namespace CinemaParadiso.Models
         public double VoteAverage { get; set; }
         [JsonProperty("release_date")]
         public DateTime ReleaseDate { get; set; }
+        [JsonProperty("poster_path")]
+        public string Poster { get; set; }
         [JsonProperty("genres")]
         [JsonConverter(typeof(SingleOrArrayConverter<Genre>))]
         public List<Genre> Genres { get; set; }
+        [JsonProperty("casts")]
+        public Casts People { get; set; }
+        public static String ImagesPath { get; set; }
+        public Movie()
+        {
+            ImagesPath = "https://image.tmdb.org/t/p/w500/";
+        }
     }
 }

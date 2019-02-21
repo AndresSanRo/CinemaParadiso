@@ -13,8 +13,15 @@
     <p>@m.Overview</p>
     <p>@m.VoteAverage</p>
     <p>@m.ReleaseDate.ToShortDateString()</p>
+    <img src="@String.Concat(Movie.ImagesPath, m.Poster)" />
     @foreach (Genre genre in m.Genres)
     {
         <p>@genre.Name</p>
     }
+    <ul>
+        @foreach(Cast actor in m.People.Cast)
+        {
+            <li>@actor.Character (@actor.Name)</li>
+        }
+    </ul>
 }

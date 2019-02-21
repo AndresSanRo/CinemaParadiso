@@ -23,10 +23,23 @@ namespace CinemaParadiso.Models
         {
             using (HttpClient httpClient = new HttpClient())
             {
-                string requestPath = "movie/" + idMovie + "?" + this.Language + "&api_key=" + configuration["apiKey"];
+                string requestPath = "movie/" + idMovie + "?" + this.Language + "&append_to_response=casts&api_key=" + configuration["apiKey"];
                 httpClient.BaseAddress = new Uri(this.URI);
                 httpClient.DefaultRequestHeaders.Accept.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));                
+                HttpResponseMessage response = await httpClient.GetAsync(requestPath);
+                String responseString = await response.Content.ReadAsStringAsync();
+                return "[" + responseString + "]";
+            }
+        }
+        public async Task<string> GetConfig()
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                string requestPath = "configuration/api_key=" + configuration["apiKey"];
+                httpClient.BaseAddress = new Uri(this.URI);
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage response = await httpClient.GetAsync(requestPath);
                 String responseString = await response.Content.ReadAsStringAsync();
                 return "[" + responseString + "]";
