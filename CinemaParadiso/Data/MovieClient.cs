@@ -24,6 +24,11 @@ namespace CinemaParadiso.Data
             Region = "region=ES";
             this.configuration = configuration;
         }
+        /// <summary>
+        /// Returns a movie from the API.
+        /// </summary>
+        /// <param name="idMovie">int. The id of the movie</param>
+        /// <returns>Movie. A movie object.</returns>
         public async Task<Movie> GetMovie(int idMovie)
         {           
             string request = "movie/" + idMovie + "?" + this.Language + "&append_to_response=casts&api_key=" + configuration["apiKey"];
@@ -32,6 +37,12 @@ namespace CinemaParadiso.Data
             List<Movie> movies = JsonConvert.DeserializeObject<List<Movie>>(responseString);
             return movies.First();            
         }
+        /// <summary>
+        /// Call the API to discover the current theatre movies untill last month.
+        /// </summary>
+        /// <param name="sortMethod">Enum. The sort option</param>
+        /// <param name="option">Enum. Include adult movies or not</param>
+        /// <returns></returns>
         public async Task<List<Movie>> DiscoverInTheatreMovies(Sort sortMethod, IncludeAdult option)
         {
             DateTime date = DateTime.Now;           
