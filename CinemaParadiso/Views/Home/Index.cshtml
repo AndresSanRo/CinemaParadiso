@@ -1,6 +1,5 @@
 ﻿
 @model Movie
-@*@model String*@
 @{
     ViewData["Title"] = "Index";
 }
@@ -11,4 +10,3 @@
     <a asp-action="Movie" asp-controller="home" asp-route-id="28">El club de la lucha</a>
 </div>
 @await Component.InvokeAsync("DiscoverMovies", new { sortOption = Sort.PopularityDesc, adultOption = IncludeAdult.Yes })
-
