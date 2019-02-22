@@ -9,4 +9,29 @@
 <div>
     <a asp-action="Movie" asp-controller="home" asp-route-id="28">El club de la lucha</a>
 </div>
-@await Component.InvokeAsync("DiscoverMovies", new { sortOption = Sort.PopularityDesc, adultOption = IncludeAdult.Yes })
+<div class="row">
+    <div class="col-lg-2">
+        <h2>En cartelera</h2>
+        @await Component.InvokeAsync("DiscoverMovies", new { sortOption = Sort.PopularityDesc, adultOption = IncludeAdult.Yes })
+    </div>
+    <div class="col-lg-2">
+        <h2>En cartelera</h2>
+        @await Component.InvokeAsync("DiscoverMovies", new { sortOption = Sort.ReleaseDateAsc, adultOption = IncludeAdult.Yes })
+    </div>
+    <div class="col-lg-2">
+        <h2>En cartelera</h2>
+        @await Component.InvokeAsync("DiscoverMovies", new { sortOption = Sort.VoteAverageAsc, adultOption = IncludeAdult.Yes })
+    </div>
+    <div class="col-lg-2">
+        <h2>En cartelera</h2>
+        @await Component.InvokeAsync("DiscoverMovies", new { sortOption = Sort.OriginalTitleDesc, adultOption = IncludeAdult.Yes })
+    </div>
+    <div class="col-lg-2">
+        <h2>En cartelera</h2>
+        @await Component.InvokeAsync("DiscoverMovies", new { sortOption = Sort.VoteCountDesc, adultOption = IncludeAdult.Yes })
+    </div>
+    <div class="col-lg-2">
+        <h2>En cartelera</h2>
+        @await Component.InvokeAsync("DiscoverMovies", new { sortOption = Sort.RevenueDesc, adultOption = IncludeAdult.Yes })
+    </div>
+</div>

@@ -14,6 +14,10 @@ namespace CinemaParadiso.Models
         public String Title { get; set; }
         [JsonProperty("poster_path")]
         public String PosterPath { get; set; }
-
+        public static String ImagesPath { get; set; }
+        public DiscoverMovie()
+        {
+            ImagesPath = "https://image.tmdb.org/t/p/w300/";
+        }
     }
 }
