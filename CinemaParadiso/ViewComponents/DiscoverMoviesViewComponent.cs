@@ -18,8 +18,8 @@ namespace CinemaParadiso.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync(Sort sortOption, IncludeAdult adultOption)
         {
-            List<Movie> movies = await client.DiscoverInTheatreMovies(sortOption, adultOption);
-            return View(movies);
+            DiscoverMovieRequest result = await client.DiscoverInTheatreMovies(sortOption, adultOption);
+            return View(result.Movies);
         }
     }
 }

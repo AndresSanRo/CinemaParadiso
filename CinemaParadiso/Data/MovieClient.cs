@@ -35,15 +35,15 @@ namespace CinemaParadiso.Data
             String responseString = await ApiRequest(request, configuration["apiKey"]);
             responseString =  "[" + responseString + "]";
             List<Movie> movies = JsonConvert.DeserializeObject<List<Movie>>(responseString);
-            return movies.First();            
+            return movies.FirstOrDefault();            
         }
         /// <summary>
-        /// Call the API to discover the current theatre movies untill last month.
+        /// Discover the movies in theatre untill last month since today.
         /// </summary>
         /// <param name="sortMethod">Enum. The sort option</param>
         /// <param name="option">Enum. Include adult movies or not</param>
         /// <returns></returns>
-        public async Task<List<Movie>> DiscoverInTheatreMovies(Sort sortMethod, IncludeAdult option)
+        public async Task<DiscoverMovieRequest> DiscoverInTheatreMovies(Sort sortMethod, IncludeAdult option)
         {
             DateTime date = DateTime.Now;           
             String request = "discover/movie?";
@@ -54,8 +54,8 @@ namespace CinemaParadiso.Data
             request += "&sort_by=" + DiscoverProvider.SortBy(sortMethod);                
             String responseString = await ApiRequest(request, configuration["apiKey"]);                
             responseString = "[" + responseString + "]";
-            List<Movie> movies = JsonConvert.DeserializeObject<List<Movie>>(responseString);
-            return movies;            
+            List<DiscoverMovieRequest> movies = JsonConvert.DeserializeObject<List<DiscoverMovieRequest>>(responseString);
+            return movies.FirstOrDefault();            
         }
         /// <summary>
         /// Do an API request.
