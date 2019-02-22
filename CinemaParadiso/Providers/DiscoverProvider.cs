@@ -35,10 +35,10 @@ namespace CinemaParadiso.Providers
             switch (options)
             {
                 case IncludeAdult.Yes:
-                    adult = "Yes";
+                    adult = "true";
                     break;
                 case IncludeAdult.No:
-                    adult = "No";
+                    adult = "false";
                     break;
             }
             return adult;

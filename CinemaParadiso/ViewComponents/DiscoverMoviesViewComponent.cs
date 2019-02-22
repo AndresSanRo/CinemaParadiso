@@ -1,4 +1,5 @@
 ﻿using CinemaParadiso.Models;
+using CinemaParadiso.Data;
 using CinemaParadiso.Providers;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,8 +18,8 @@ namespace CinemaParadiso.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync(Sort sortOption, IncludeAdult adultOption)
         {
-            List<Movie> movies = await client.DiscoverMovies(sortOption, adultOption);
-            return View();
+            List<Movie> movies = await client.DiscoverInTheatreMovies(sortOption, adultOption);
+            return View(movies);
         }
     }
 }

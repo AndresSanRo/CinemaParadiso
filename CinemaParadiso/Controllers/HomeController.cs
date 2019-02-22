@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using CinemaParadiso.Models;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using Movie = CinemaParadiso.Models.Movie;
+using CinemaParadiso.Providers;
+using CinemaParadiso.Data;
 
 namespace CinemaParadiso.Controllers
 {
