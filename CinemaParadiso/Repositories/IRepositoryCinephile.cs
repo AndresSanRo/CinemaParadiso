@@ -7,5 +7,6 @@ namespace CinemaParadiso.Repositories
 {
     public interface IRepositoryCinephile
     {
+        bool Login(String user, String password);
     }
 }

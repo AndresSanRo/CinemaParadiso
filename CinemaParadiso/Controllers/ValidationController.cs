@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using CinemaParadiso.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -11,15 +12,20 @@ namespace CinemaParadiso.Controllers
 {
     public class ValidationController : Controller
     {
+        IRepositoryCinephile repo;
+        public ValidationController(IRepositoryCinephile repo)
+        {
+            this.repo = repo;
+        }
         public IActionResult Login()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(string user, string password)
+        public async Task<IActionResult> Login(String user, String password)
         {
             //Aqui se comprueban los usuarios (BBDD)
-            if (user.ToLower().Equals("admin") && password.ToLower().Equals("admin"))
+            if (repo.Login(user, password))
             {
                 //Creamos la identidad
                 ClaimsIdentity identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
