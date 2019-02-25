@@ -12,11 +12,11 @@
 <div class="row">
     <div class="col-lg-2">
         <h2>En cartelera</h2>
-        @await Component.InvokeAsync("DiscoverMovies", new { sortOption = Sort.PopularityDesc, adultOption = IncludeAdult.Yes })
+        @await Component.InvokeAsync("DiscoverMovies", new { method = DiscoverMethod.InTheatre, sortOption = Sort.PopularityDesc, adultOption = IncludeAdult.Yes })
     </div>
     <div class="col-lg-2">
-        <h2>En cartelera</h2>
-        @await Component.InvokeAsync("DiscoverMovies", new { sortOption = Sort.ReleaseDateAsc, adultOption = IncludeAdult.Yes })
+        <h2>Aptas para niños</h2>
+        @await Component.InvokeAsync("DiscoverMovies", new { method = DiscoverMethod.Kids, sortOption = Sort.ReleaseDateAsc, adultOption = IncludeAdult.Yes })
     </div>
     <div class="col-lg-2">
         <h2>En cartelera</h2>

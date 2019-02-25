@@ -57,6 +57,19 @@ namespace CinemaParadiso.Data
             List<DiscoverMovieRequest> movies = JsonConvert.DeserializeObject<List<DiscoverMovieRequest>>(responseString);
             return movies.FirstOrDefault();            
         }
+        public async Task<DiscoverMovieRequest> DiscoverKidsMovies(Sort sortMethod, IncludeAdult option)
+        {
+            DateTime date = DateTime.Now;
+            String request = "discover/movie?";
+            request += this.Language;
+            request += "&" + this.Region;
+            request += "&certification.lte = G";            
+            request += "&sort_by=" + DiscoverProvider.SortBy(sortMethod);
+            String responseString = await ApiRequest(request, configuration["apiKey"]);
+            responseString = "[" + responseString + "]";
+            List<DiscoverMovieRequest> movies = JsonConvert.DeserializeObject<List<DiscoverMovieRequest>>(responseString);
+            return movies.FirstOrDefault();
+        }
         /// <summary>
         /// Do an API request.
         /// </summary>
