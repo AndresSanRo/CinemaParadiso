@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CinemaParadiso.Data;
 using CinemaParadiso.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,7 +35,27 @@ namespace CinemaParadiso
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            services.Configure<CookiePolicyOptions>(options => {
+                //Esperamos que sea aceptada
+                options.CheckConsentNeeded = context => true;
+                //La graudamos en el mismo sitio
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+            //Configuramos el comportamiento del servidor
+            services.AddDistributedMemoryCache();
+            //services.AddSession(options => options.IdleTimeout = TimeSpan.FromSeconds(30));
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromSeconds(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+            //Indicamos que genere el Ticket
+            services.AddAuthentication(
+                options => {
+                    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                }).AddCookie();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -53,7 +74,8 @@ namespace CinemaParadiso
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            app.UseCookiePolicy();            
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
