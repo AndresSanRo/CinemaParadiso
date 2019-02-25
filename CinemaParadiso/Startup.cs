@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CinemaParadiso.Data;
 using CinemaParadiso.Models;
+using CinemaParadiso.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +29,8 @@ namespace CinemaParadiso
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<MovieClient>();
+            services.AddTransient<ICinemaContext, CinemaContext>();
+            services.AddTransient<IRepositoryCinephile, RepositoryCinephile>();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
