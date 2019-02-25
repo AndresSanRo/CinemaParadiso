@@ -13,24 +13,24 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace CinemaParadiso
 {
     public class Startup
     {
+        public IConfiguration configuration;
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
+            this.configuration = configuration;
+        }        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<MovieClient>();
-            services.AddTransient<ICinemaContext, CinemaContext>();
+            services.AddTransient<MovieClient>();            
             services.AddTransient<IRepositoryCinephile, RepositoryCinephile>();
+            //services.AddTransient<ICinemaContext, CinemaContext>(options => options.UseSqlServer(configuration.GetConnectionString("cinemaSqlServer")));
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.

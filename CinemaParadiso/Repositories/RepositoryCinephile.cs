@@ -14,6 +14,12 @@ namespace CinemaParadiso.Repositories
         {
             this.context = context;
         }
+        /// <summary>
+        /// Checks if a login request is valid.
+        /// </summary>
+        /// <param name="user">String. User´s email.</param>
+        /// <param name="password">String. User´s password.</param>
+        /// <returns></returns>
         public bool Login(String user, String password)
         {
             Cinephile cineUser = (from data in context.Cinephiles
