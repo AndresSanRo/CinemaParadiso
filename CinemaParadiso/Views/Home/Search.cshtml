@@ -1,0 +1,16 @@
+﻿@model List<DiscoverMovie>
+<div class="row">
+@foreach (DiscoverMovie movie in Model)
+{
+    if (movie.PosterPath != null)
+    {
+    <div class="col-lg-2">
+        <div class="card">
+            <a href="@Url.Action("Movie", "Home", new { id=movie.ID })">
+                <img class="card-img-top" src="@String.Concat(DiscoverMovie.ImagesPath, movie.PosterPath)" alt="@movie.Title">
+            </a>            
+        </div>
+    </div>
+    }
+}            
+</div>

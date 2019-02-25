@@ -29,6 +29,14 @@ namespace CinemaParadiso.Controllers
             Movie movie = client.GetMovie(id).Result;
             return View(movie);
         }
-        
+        public async Task<IActionResult> Search(String searchString)
+        {
+            if (searchString is null)
+            {
+                return RedirectToAction("Index");
+            }
+            DiscoverMovieRequest searchMovies = await client.SearchMovie(searchString);
+            return View(searchMovies.Movies);
+        }
     }
 }

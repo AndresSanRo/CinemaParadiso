@@ -17,7 +17,7 @@
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <img src="~/images/icons/popcorn32px.png" />
-        <a class="navbar-brand" href="#">Cinema paradiso</a>
+        <a class="navbar-brand" asp-action="Index" asp-controller="Home">Cinema paradiso</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -42,8 +42,8 @@
                     </div>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <form class="form-inline my-2 my-lg-0" asp-action="Search" asp-controller="Home" method="GET">
+                <input class="form-control mr-sm-2" name="searchString" type="text" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
@@ -52,7 +52,7 @@
     <main role="main" class="text-white">               
         @RenderBody()
     </main><!-- /.container -->
-    <footer class="footer fixed-bottom bg-dark footer-dark">
+    @*<footer class="footer fixed-bottom bg-dark footer-dark">
         <div class="container-fluid text-white">
             <div class="row">
                 <div class="col-lg 12">
@@ -60,7 +60,7 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </footer>*@
     <environment include="Development">
         <script src="~/lib/jquery/jquery-3.3.1.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/popper.min.js"></script>

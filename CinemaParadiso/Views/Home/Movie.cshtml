@@ -45,35 +45,50 @@
             }
             <div class="col-lg-3 col-md-3">
                 <h3>Director</h3>
-                @if (director.ProfilePath != null)
+                @if (director != null)
                 {
-                    <div class="card">
-                        <img class="card-img-top" src="@String.Concat(Movie.ImagesPath, director.ProfilePath)" alt="@director.Name">
-                        <div class="card-img-overlay">
-                            <h4 class="card-title">@director.Name</h4>
+                    @if (director.ProfilePath != null)
+                    {
+                        <div class="card">
+                            <img class="card-img-top" src="@String.Concat(Movie.ImagesPath, director.ProfilePath)" alt="@director.Name">
+                            <div class="card-img-overlay">
+                                <h4 class="card-title">@director.Name</h4>
+                            </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <h5>@director.Name</h5>
+                    }
                 }
                 else
                 {
-                    <h5>@director.Name</h5>
+                    <h5>(Desconocido)</h5>
                 }
             </div>
             <div class="col-lg-3 col-md-3">
                 <h3>Guión</h3>
-                @if (writer.ProfilePath != null)
+                @if (writer != null)
                 {
-                    <div class="card">
-                        <img class="card-img-top" src="@String.Concat(Movie.ImagesPath, writer.ProfilePath)" alt="@writer.Name">
-                        <div class="card-img-overlay">
-                            <h4 class="card-title">@writer.Name</h4>
+                    @if (writer.ProfilePath != null)
+                    {
+                        <div class="card">
+                            <img class="card-img-top" src="@String.Concat(Movie.ImagesPath, writer.ProfilePath)" alt="@writer.Name">
+                            <div class="card-img-overlay">
+                                <h4 class="card-title">@writer.Name</h4>
+                            </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <h5>@writer.Name</h5>
+                    }
                 }
                 else
                 {
-                    <h5>@writer.Name</h5>
+                    <h5>(Desconocido)</h5>
                 }
+
             </div>
 
             <div class="col-lg-3 col-md-3">
@@ -83,27 +98,30 @@
                     <div class="carousel-inner">
                         @foreach (Cast actor in Model.People.Cast)
                         {
-                            if (carousel == 0)
+                            if (actor.ProfilePath != null)
                             {
-                                <div class="carousel-item active">
-                                    <img src="@String.Concat(Movie.ImagesPath, actor.ProfilePath)" alt="@actor.Name">
-                                    <div class="carousel-caption">
-                                        <h3>@actor.Name</h3>
-                                        <p>(@actor.Character)</p>
+                                if (carousel == 0)
+                                {
+                                    <div class="carousel-item active">
+                                        <img src="@String.Concat(Movie.ImagesPath, actor.ProfilePath)" alt="@actor.Name">
+                                        <div class="carousel-caption">
+                                            <h3>@actor.Name</h3>
+                                            <p>(@actor.Character)</p>
+                                        </div>
                                     </div>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="carousel-item">
-                                    <img src="@String.Concat(Movie.ImagesPath, actor.ProfilePath)" alt="@actor.Name">
-                                    <div class="carousel-caption">
-                                        <h3>@actor.Name</h3>
-                                        <p>(@actor.Character)</p>
+                                }
+                                else
+                                {
+                                    <div class="carousel-item">
+                                        <img src="@String.Concat(Movie.ImagesPath, actor.ProfilePath)" alt="@actor.Name">
+                                        <div class="carousel-caption">
+                                            <h3>@actor.Name</h3>
+                                            <p>(@actor.Character)</p>
+                                        </div>
                                     </div>
-                                </div>
+                                }
+                                carousel++;
                             }
-                            carousel++;
                         }
                     </div>
                     <!-- Left and right controls -->
