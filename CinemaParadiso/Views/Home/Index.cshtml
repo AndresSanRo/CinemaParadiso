@@ -4,34 +4,56 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-
-<div>
-    <a asp-action="Movie" asp-controller="home" asp-route-id="28">El club de la lucha</a>
-</div>
 <div class="row">
     <div class="col-lg-2">
-        <h2>En cartelera</h2>
+        <h3>En cartelera</h3>
         @await Component.InvokeAsync("DiscoverMovies", new { method = DiscoverMethod.InTheatre, sortOption = Sort.PopularityDesc, adultOption = IncludeAdult.Yes })
     </div>
     <div class="col-lg-2">
-        <h2>Aptas para niños</h2>
-        @await Component.InvokeAsync("DiscoverMovies", new { method = DiscoverMethod.Kids, sortOption = Sort.ReleaseDateAsc, adultOption = IncludeAdult.Yes })
+        <h3>Aptas para niños</h3>
+        @await Component.InvokeAsync("DiscoverMovies", new { method = DiscoverMethod.Kids, sortOption = Sort.ReleaseDateAsc, adultOption = IncludeAdult.No })
     </div>
     <div class="col-lg-2">
-        <h2>En cartelera</h2>
-        @await Component.InvokeAsync("DiscoverMovies", new { sortOption = Sort.VoteAverageAsc, adultOption = IncludeAdult.Yes })
+        <h3>Populares en España</h3>
+        @await Component.InvokeAsync("DiscoverMovies", new { method = DiscoverMethod.Spain, sortOption = Sort.PopularityDesc, adultOption = IncludeAdult.Yes })
     </div>
     <div class="col-lg-2">
-        <h2>En cartelera</h2>
-        @await Component.InvokeAsync("DiscoverMovies", new { sortOption = Sort.OriginalTitleDesc, adultOption = IncludeAdult.Yes })
+        <h3>Acción</h3>
+        @await Component.InvokeAsync("DiscoverMovies", new { method = DiscoverMethod.Genre, genre = 28, sortOption = Sort.PopularityDesc, adultOption = IncludeAdult.Yes })
     </div>
     <div class="col-lg-2">
-        <h2>En cartelera</h2>
-        @await Component.InvokeAsync("DiscoverMovies", new { sortOption = Sort.VoteCountDesc, adultOption = IncludeAdult.Yes })
+        <h3>Animación</h3>
+        @await Component.InvokeAsync("DiscoverMovies", new { method = DiscoverMethod.Genre, genre = 16, sortOption = Sort.PopularityDesc, adultOption = IncludeAdult.Yes })
     </div>
     <div class="col-lg-2">
-        <h2>En cartelera</h2>
-        @await Component.InvokeAsync("DiscoverMovies", new { sortOption = Sort.RevenueDesc, adultOption = IncludeAdult.Yes })
+        <h3>Comedia</h3>
+        @await Component.InvokeAsync("DiscoverMovies", new { method = DiscoverMethod.Genre, genre = 35, sortOption = Sort.PopularityDesc, adultOption = IncludeAdult.Yes })
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-2">
+        <h3>Documental</h3>
+        @await Component.InvokeAsync("DiscoverMovies", new { method = DiscoverMethod.Genre, genre = 99, sortOption = Sort.PopularityDesc, adultOption = IncludeAdult.Yes })
+    </div>
+    <div class="col-lg-2">
+        <h3>Drama</h3>
+        @await Component.InvokeAsync("DiscoverMovies", new { method = DiscoverMethod.Genre, genre = 18, sortOption = Sort.PopularityDesc, adultOption = IncludeAdult.Yes })
+    </div>
+    <div class="col-lg-2">
+        <h3>Fantasia</h3>
+        @await Component.InvokeAsync("DiscoverMovies", new { method = DiscoverMethod.Genre, genre = 14, sortOption = Sort.PopularityDesc, adultOption = IncludeAdult.Yes })
+    </div>
+    <div class="col-lg-2">
+        <h3>Terror</h3>
+        @await Component.InvokeAsync("DiscoverMovies", new { method = DiscoverMethod.Genre, genre = 27, sortOption = Sort.PopularityDesc, adultOption = IncludeAdult.Yes })
+    </div>
+    <div class="col-lg-2">
+        <h3>Música</h3>
+        @await Component.InvokeAsync("DiscoverMovies", new { method = DiscoverMethod.Genre, genre = 10402, sortOption = Sort.PopularityDesc, adultOption = IncludeAdult.Yes })
+    </div>
+    <div class="col-lg-2">
+        <h3>Ciencia-ficción</h3>
+        @await Component.InvokeAsync("DiscoverMovies", new { method = DiscoverMethod.Genre, genre = 878, sortOption = Sort.PopularityDesc, adultOption = IncludeAdult.Yes })
     </div>
 </div>

@@ -14,19 +14,22 @@
 
         @foreach (DiscoverMovie movie in Model)
         {
-            if (carousel == 0)
+            if (movie.PosterPath != null)
             {
-                <div class="carousel-item active">
-                    <img src="@String.Concat(DiscoverMovie.ImagesPath, movie.PosterPath)" alt="Los Angeles">                    
-                </div>
+                if (carousel == 0)
+                {
+                    <div class="carousel-item active">
+                        <img src="@String.Concat(DiscoverMovie.ImagesPath, movie.PosterPath)" alt="Los Angeles">
+                    </div>
+                }
+                else
+                {
+                    <div class="carousel-item">
+                        <img src="@String.Concat(DiscoverMovie.ImagesPath, movie.PosterPath)" alt="Los Angeles">
+                    </div>
+                }
+                carousel++;
             }
-            else
-            {
-                <div class="carousel-item">
-                    <img src="@String.Concat(DiscoverMovie.ImagesPath, movie.PosterPath)" alt="Los Angeles">                   
-                </div>
-            }
-            carousel++;
         }
 
     </div>    

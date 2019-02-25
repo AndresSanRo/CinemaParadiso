@@ -57,13 +57,55 @@ namespace CinemaParadiso.Data
             List<DiscoverMovieRequest> movies = JsonConvert.DeserializeObject<List<DiscoverMovieRequest>>(responseString);
             return movies.FirstOrDefault();            
         }
+        /// <summary>
+        /// Discover movies rated G for kids.
+        /// </summary>
+        /// <param name="sortMethod">Enum. The sort option.</param>
+        /// <param name="option">Enum. Include adult movies or not.</param>
+        /// <returns></returns>
         public async Task<DiscoverMovieRequest> DiscoverKidsMovies(Sort sortMethod, IncludeAdult option)
         {
             DateTime date = DateTime.Now;
             String request = "discover/movie?";
             request += this.Language;
             request += "&" + this.Region;
-            request += "&certification.lte = G";            
+            request += "&certification.lte=G";            
+            request += "&sort_by=" + DiscoverProvider.SortBy(sortMethod);
+            String responseString = await ApiRequest(request, configuration["apiKey"]);
+            responseString = "[" + responseString + "]";
+            List<DiscoverMovieRequest> movies = JsonConvert.DeserializeObject<List<DiscoverMovieRequest>>(responseString);
+            return movies.FirstOrDefault();
+        }
+        /// <summary>
+        /// Discover popular movies in Spain.
+        /// </summary>
+        /// <param name="sortMethod">Enum. The sort option.</param>
+        /// <param name="option">Enum. Include adult movies or not.</param>
+        /// <returns></returns>
+        public async Task<DiscoverMovieRequest> DiscoverSpainMovies(Sort sortMethod, IncludeAdult option)
+        {            
+            String request = "discover/movie?";
+            request += this.Language;
+            request += "&" + this.Region;
+            request += "&certification_country=ES";
+            request += "&sort_by=" + DiscoverProvider.SortBy(sortMethod);
+            String responseString = await ApiRequest(request, configuration["apiKey"]);
+            responseString = "[" + responseString + "]";
+            List<DiscoverMovieRequest> movies = JsonConvert.DeserializeObject<List<DiscoverMovieRequest>>(responseString);
+            return movies.FirstOrDefault();
+        }
+        /// <summary>
+        /// Discover movies filtered by genre.
+        /// </summary>
+        /// <param name="sortMethod">Enum. The sort option.</param>
+        /// <param name="option">Enum. Include adult movies or not.</param>
+        /// <returns></returns>
+        public async Task<DiscoverMovieRequest> DiscoverGenreMovies(int genre, Sort sortMethod, IncludeAdult option)
+        {            
+            String request = "discover/movie?";
+            request += this.Language;
+            request += "&" + this.Region;
+            request += "&with_genres=" + genre;
             request += "&sort_by=" + DiscoverProvider.SortBy(sortMethod);
             String responseString = await ApiRequest(request, configuration["apiKey"]);
             responseString = "[" + responseString + "]";
