@@ -13,40 +13,27 @@
     </environment>    
     @RenderSection("styles", required: false)
 </head>
-<body class=" container-fluid bg-dark">
+<body class="container-fluid bg-dark">
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <img src="~/images/icons/popcorn32px.png" />
-        <a class="navbar-brand" asp-action="Index" asp-controller="Home">Cinema paradiso</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" asp-action="Index" asp-controller="Home">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0" asp-action="Search" asp-controller="Home" method="GET">
-                <input class="form-control mr-sm-2" name="searchString" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
+        <a class="navbar-brand my-2" asp-action="Index" asp-controller="Home">Cinema paradiso</a>
+        <div class="collapse navbar-collapse justify-content-between" id="navbar">
+            <div class="navbar-nav">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>                
+            </div>
+            <div class="navbar-nav">                                    
+                <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                    <form class="form-inline my-2 my-lg-0" asp-action="Search" asp-controller="Home" method="GET">
+                        <input class="form-control mr-sm-2" name="searchString" type="text" placeholder="Busqueda..." aria-label="Search">
+                        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Buscar</button>
+                    </form>
+                </div>                    
+                <button class="btn btn-outline-danger nav-item" asp-action="Login" asp-controller="Validation">Inicia sesión</button>                     
+            </div>
+        </div>            
     </nav>
 
     <main role="main" class="text-white">               
