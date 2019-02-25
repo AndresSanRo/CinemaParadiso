@@ -11,22 +11,7 @@ CREATE TABLE CINEPHILES(
 	CINEIMAGE NVARCHAR (50)
 );
 
-INSERT INTO CINEPHILES VALUES ('andres.san.ro@outlook.com', 'andressanro', 'Andres', 'Sanchez Robleno', 23, 'andres.png');
-
-CREATE TABLE MOVIES(
-	IDMOVIE INT IDENTITY(1,1) PRIMARY KEY,
-	TITLE NVARCHAR(50),
-	GENRE NVARCHAR(255),
-	DIRECTOR NVARCHAR(100),
-	PRODUCTOR NVARCHAR(100),
-	ACTOR NVARCHAR(255),
-	SYNOPSIS TEXT,
-	MOVIEIMAGE NVARCHAR(50),
-	METAPUNTUATION DECIMAL(1,1)
-);
-
-INSERT INTO MOVIES VALUES('La jungla de cristal', 'Accion;Blockbuster', 'John McTiernan', NULL, 'Bruce Willis', NULL, 'movie.png', 0);
---select * from MOVIES;
+INSERT INTO CINEPHILES VALUES ('andres.san.ro@outlook.com', 'andressanro', 'Andrés', 'Sánchez Robleño', 23, 'andres.png');
 
 CREATE TABLE LISTS(
 	IDMOVIE INT,
