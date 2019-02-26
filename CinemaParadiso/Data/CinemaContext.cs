@@ -11,5 +11,6 @@ namespace CinemaParadiso.Data
     {
         public CinemaContext(DbContextOptions options) : base(options) { }
         public DbSet<Cinephile> Cinephiles { get; set; }
+        public DbSet<Lists> Lists { get; set; }
     }
 }

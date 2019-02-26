@@ -31,5 +31,32 @@ namespace CinemaParadiso.Repositories
             else
                 return false;
         }
+        public bool CheckInList(int idMovie, String user)
+        {
+            Lists query = (from data in context.Lists
+                          where data.IdMovie.Equals(idMovie)
+                          && data.UserEmail.Equals(user)
+                          select data).FirstOrDefault();
+            if (query != null)
+                return true;
+            else
+                return false;
+        }
+        public void AddMovieToList(int idMovie, String user)
+        {
+            Lists movie = new Lists();
+            movie.IdMovie = idMovie;
+            movie.UserEmail = user;
+            context.Lists.Add(movie);
+            context.SaveChanges();
+        }
+        public void RemoveMovieFromList(int idMovie, String user)
+        {
+            Lists movie = new Lists();
+            movie.IdMovie = idMovie;
+            movie.UserEmail = user;
+            context.Lists.Remove(movie);
+            context.SaveChanges();
+        }
     }
 }
