@@ -4,16 +4,33 @@
     ViewData["Title"] = "Movie";
     int carousel = 0;
 }
-@section styles{ 
+@section styles{
     <style type="text/css">
         .carousel-inner img {
             width: 100%;
-            height: 100%;            
+            height: 100%;
         }
 
+        .modal-backdrop {
+            background-color: red;
+        }
     </style>
 }
-<h1>@Model.Title (@Model.ReleaseDate.Year)</h1>
+<h1>
+    @Model.Title (@Model.ReleaseDate.Year)
+    @if (ViewData["INLIST"].Equals("Yes"))
+    {
+        <button class="btn btn-danger" data-toggle="modal" data-target="#RemoveMovieModal">
+            <i class="fas fa-check"></i>
+        </button>
+    }
+    else
+    {
+        <button class="btn btn-danger" data-toggle="modal" data-target="#AddMovieModal">
+            <i class="fas fa-plus"></i>
+        </button>
+    }
+</h1>
 
 <div class="row">
     <div class="col-lg-4 col-md-4">
@@ -26,7 +43,7 @@
                 <p>@Model.Overview</p>
                 <h3>Meta-crítica</h3>
                 <h4>
-                    @Model.VoteAverage                    
+                    @Model.VoteAverage
                     <img src="~/images/icons/popcorn24px.png" />
                 </h4>
                 <h3>Géneros</h3>
@@ -135,6 +152,60 @@
                 </div>
             </div>
         </div>
-        
+
+    </div>
+</div>
+<!--The add modal-->
+<div class="modal fade" style="color:black" id="AddMovieModal">
+    <div class="modal-dialog modal-sm .modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Añadir a mi lista</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <h6>@Model.Title (@Model.ReleaseDate.Year)</h6>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                @using (Html.BeginForm("AddToList", "Home"))
+                {
+                    <button type="submit" class="btn btn-danger form-control" name="idMovie" value="@Model.ID">Añadir</button>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--The remove modal-->
+<div class="modal fade" style="color:black" id="RemoveMovieModal">
+    <div class="modal-dialog modal-sm .modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Retirar de mi lista</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <h6>@Model.Title (@Model.ReleaseDate.Year)</h6>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                @using (Html.BeginForm("RemoveFromList", "Home"))
+                {
+                    <button type="submit" class="btn btn-danger form-control" name="idMovie" value="@Model.ID">Retirar</button>
+                }
+            </div>
+
+        </div>
     </div>
 </div>

@@ -9,14 +9,12 @@ namespace CinemaParadiso.Models
 {
     [Table("LISTS")]
     public class Lists
-    {        
-        [Key]
+    {                
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Column(Order = 0)]
-        public int IdMovie { get; set; }
-        [Key]
+        [Column("IDMOVIE")]
+        public int IdMovie { get; set; }       
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Column(Order = 1)]
+        [Column("CINEEMAIL")]
         public String UserEmail { get; set; }
         //[Column("REVIEW")]
         //public String Review { get; set; }

@@ -7,6 +7,7 @@
 
     <environment include="Development">
         <link rel="shortcut icon" type="image/png" href="~/images/icons/popcorn16px.png" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
         <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/site.css" />
 
@@ -32,8 +33,7 @@
                             <div class="input-group-append">
                                 <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Buscar</button>
                             </div>
-                        </div>                        
-                        @*<button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Buscar</button>*@
+                        </div>                                                
                     </form>
                 </div>
 
@@ -44,7 +44,7 @@
                             img
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Mi lista</a>
+                            <a class="dropdown-item" asp-action="UserList" asp-controller="Home">Mi lista</a>
                             <a class="dropdown-item" href="#">Perfil</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Cerrar sesión</a>

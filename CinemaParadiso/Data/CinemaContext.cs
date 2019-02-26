@@ -12,5 +12,10 @@ namespace CinemaParadiso.Data
         public CinemaContext(DbContextOptions options) : base(options) { }
         public DbSet<Cinephile> Cinephiles { get; set; }
         public DbSet<Lists> Lists { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Lists>()
+                .HasKey(c => new { c.IdMovie, c.UserEmail });
+        }
     }
 }

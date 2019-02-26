@@ -1,0 +1,21 @@
+﻿@model List<Movie>
+@{
+    ViewData["Title"] = "UserList";
+}
+
+<div class="row">
+    @foreach (Movie movie in Model)
+    {
+        if (movie.Poster != null)
+        {
+            <div class="col-lg-2">
+                <div class="card">
+                    <a href="@Url.Action("Movie", "Home", new { id=movie.ID })">
+                        <img class="card-img-top" src="@String.Concat(Movie.ImagesPath, movie.Poster)" alt="@movie.Title">
+                    </a>
+                </div>
+            </div>
+        }
+    }
+</div>
+

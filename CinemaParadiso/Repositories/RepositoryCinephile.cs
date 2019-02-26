@@ -58,5 +58,12 @@ namespace CinemaParadiso.Repositories
             context.Lists.Remove(movie);
             context.SaveChanges();
         }
+        public List<Lists> GetUserList(String user)
+        {
+            var query = from data in context.Lists
+                        where data.UserEmail.Equals(user)
+                        select data;
+            return query.ToList();
+        }
     }
 }
