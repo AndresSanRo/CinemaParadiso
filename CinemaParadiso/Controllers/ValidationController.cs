@@ -28,17 +28,15 @@ namespace CinemaParadiso.Controllers
             if (repo.Login(user, password))
             {
                 //Creamos la identidad
-                ClaimsIdentity identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
-                identity.AddClaim(new Claim(ClaimTypes.PostalCode, "28300"));
-                identity.AddClaim(new Claim(ClaimTypes.Name, user));
-                identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
+                ClaimsIdentity identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, null);                
+                identity.AddClaim(new Claim(ClaimTypes.Name, user));                
                 identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user));
                 ClaimsPrincipal principal = new ClaimsPrincipal(identity);
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     principal,
                     new AuthenticationProperties { IsPersistent = true, ExpiresUtc = DateTime.Now.AddMinutes(30) });
-                return RedirectToAction("Index", "Profile");
+                return RedirectToAction("Index", "Home");
             }
             ViewData["Mensaje"] = "Usuario/Password incorrecto";
             return View();
