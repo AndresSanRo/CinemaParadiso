@@ -60,11 +60,11 @@
                 Crew writer = Model.People.Crew.Find(d => d.Job.Equals("Screenplay"));
             }
             <div class="col-lg-3 col-md-3">
-                <h3>Director</h3>
+                <h3 class="text-center">Director</h3>
                 @if (director != null)
                 {
                     @if (director.ProfilePath != null)
-                    {                        
+                    {
                         <div class="card">
                             <img class="card-img-top" src="@String.Concat(Movie.ImagesPath, director.ProfilePath)" alt="@director.Name">
                             <div class="card-img-overlay">
@@ -74,16 +74,18 @@
                     }
                     else
                     {
-                        <h5>@director.Name</h5>
+                        <h5 class="text-center">@director.Name</h5>
+                        <img class="card-img-top" src="~/images/icons/popcorn512px.png" alt="@director.Name">
                     }
                 }
                 else
                 {
-                    <h5>(Desconocido)</h5>
+                    <h5 class="text-center">(Desconocido)</h5>
+                    <img class="card-img-top" src="~/images/icons/popcorn512px.png" alt="">
                 }
             </div>
             <div class="col-lg-3 col-md-3">
-                <h3>Guión</h3>
+                <h3 class="text-center">Guión</h3>
                 @if (writer != null)
                 {
                     @if (writer.ProfilePath != null)
@@ -97,18 +99,21 @@
                     }
                     else
                     {
-                        <h5>@writer.Name</h5>
+                        <h4 class="text-center">@writer.Name</h4>
+                        <img class="w-100" src="~/images/icons/popcorn512px.png" alt="@writer.Name">
+
                     }
                 }
                 else
                 {
-                    <h5>(Desconocido)</h5>
+                    <h5 class="text-center">(Desconocido)</h5>
+                    <img class="w-100" src="~/images/icons/popcorn512px.png" alt="">
                 }
 
             </div>
 
             <div class="col-lg-3 col-md-3">
-                <h3>Actores</h3>
+                <h3 class="text-center">Actores</h3>
                 <div id="actors" class="carousel slide" data-ride="carousel">
                     <!-- The slideshow -->
                     <div class="carousel-inner">
