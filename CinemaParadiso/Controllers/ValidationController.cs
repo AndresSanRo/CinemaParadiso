@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using CinemaParadiso.Filters;
 using CinemaParadiso.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -40,6 +41,12 @@ namespace CinemaParadiso.Controllers
             }
             ViewData["Mensaje"] = "Usuario/Password incorrecto";
             return View();
+        }
+        [UserAuthorize]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult Register()
         {

@@ -31,16 +31,10 @@ namespace CinemaParadiso.Controllers
         public IActionResult Movie(int id)
         {
             Movie movie = client.GetMovie(id).Result;
-            if (HttpContext.User.Identity.IsAuthenticated)
+            ViewData["INLIST"] = "No";
+            if (HttpContext.User.Identity.IsAuthenticated && repo.CheckInList(movie.ID, HttpContext.User.Identity.Name))
             {                
-                if (repo.CheckInList(movie.ID, HttpContext.User.Identity.Name))
-                {
-                    ViewData["INLIST"] = "Yes";
-                }
-                else
-                {
-                    ViewData["INLIST"] = "No";
-                }
+                ViewData["INLIST"] = "Yes";              
             }                        
             return View(movie);
         }
@@ -59,11 +53,12 @@ namespace CinemaParadiso.Controllers
             return View(movies);
         }
         public async Task<IActionResult> Search(String searchString)
-        {
+        {            
             if (searchString is null)
             {
                 return RedirectToAction("Index");
             }
+            ViewData["SEARCH"] = searchString;
             DiscoverMovieRequest searchMovies = await client.SearchMovie(searchString);
             return View(searchMovies.Movies);
         }

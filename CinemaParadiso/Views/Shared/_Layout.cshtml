@@ -14,73 +14,73 @@
     </environment>    
     @RenderSection("styles", required: false)
 </head>
-<body class="container-fluid bg-dark">
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<body class="container-fluid bg-dark">    
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <img src="~/images/icons/popcorn32px.png" />
-        <a class="navbar-brand my-2" asp-action="Index" asp-controller="Home">Cinema paradiso</a>
-        <div class="collapse navbar-collapse justify-content-between" id="navbar">
-            <div class="navbar-nav">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>                
-            </div>
-            <div class="navbar-nav">
-                <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                    <form class="form-inline my-2 my-lg-0 mr-2" asp-action="Search" asp-controller="Home" method="GET">
-                        <div class="input-group">
-                            <input class="form-control" name="searchString" type="text" placeholder="Busqueda..." aria-label="Search">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Buscar</button>
-                            </div>
-                        </div>                                                
-                    </form>
-                </div>
-
-                @if (Context.User.Identity.IsAuthenticated)
-                {
-                    <div class="dropdown">
-                        <button type="button" class="btn btn-outline-danger dropdown-toggle" data-toggle="dropdown">
-                            img
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" asp-action="UserList" asp-controller="Home">Mi lista</a>
-                            <a class="dropdown-item" href="#">Perfil</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Cerrar sesión</a>
-                        </div>
+        <a class="navbar-brand my-2 ml-2" asp-action="Index" asp-controller="Home">Cinema paradiso</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    @*<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>*@
+                </li>
+                <li class="nav-item">
+                    @*<a class="nav-link" href="#">Link</a>*@
+                </li>
+                <li class="nav-item">
+                    @*<a class="nav-link disabled" href="#">Disabled</a>*@
+                </li>
+            </ul>            
+            <form class="form-inline mt-2 mt-md-0" asp-action="Search" asp-controller="Home" method="GET">
+                <div class="input-group">
+                    <input class="form-control" name="searchString" type="text" placeholder="Busqueda..." aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-danger" type="submit">Buscar</button>
                     </div>
-                    @*<h5>@Context.User.Identity.Name</h5>*@
-                }
-                else
-                {
-                    <a asp-action="Login" asp-controller="Validation">
-                        <button class="btn btn-outline-danger nav-item">Inicia sesión</button>
-                    </a>
-                }
-                    
-            </div>
-        </div>            
-    </nav>
-
-    <main role="main" class="text-white">               
+                </div>
+            </form>
+            @if (Context.User.Identity.IsAuthenticated)
+            {
+                <div class="dropdown">
+                    <button type="button" class="btn btn-outline-danger dropdown-toggle ml-1 mt-auto" data-toggle="dropdown">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" asp-action="UserList" asp-controller="Home">Mi lista</a>
+                        <a class="dropdown-item" href="#">Perfil</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" asp-action="Logout" asp-controller="Validation">Cerrar sesión</a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <a asp-action="Login" asp-controller="Validation">
+                    <button class="btn btn-outline-danger nav-item ml-1">Inicia sesión</button>
+                </a>
+            }
+        </div>
+    </nav>    
+    <main role="main" class="text-white">
         @RenderBody()
     </main><!-- /.container -->
     @*<footer class="footer fixed-bottom bg-dark footer-dark">
-        <div class="container-fluid text-white">
-            <div class="row">
-                <div class="col-lg 12">
-                    <p><div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div></p>
+            <div class="container-fluid text-white">
+                <div class="row">
+                    <div class="col-lg 12">
+                        <p><div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div></p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>*@
+        </footer>*@
     <environment include="Development">
         <script src="~/lib/jquery/jquery-3.3.1.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/popper.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>    
+    </environment>
     @RenderSection("scripts", required: false)
 </body>
 </html>

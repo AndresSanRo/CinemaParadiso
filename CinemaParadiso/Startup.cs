@@ -30,8 +30,8 @@ namespace CinemaParadiso
         {
             services.AddTransient<MovieClient>();            
             services.AddTransient<IRepositoryCinephile, RepositoryCinephile>();
-            services.AddDbContext<ICinemaContext, CinemaContext>(options => options.UseSqlServer(configuration.GetConnectionString("cinemaSqlServer")));
-            //services.AddDbContext<ICinemaContext, CinemaContext>(options => options.UseSqlServer(configuration.GetConnectionString("tajamar")));
+            //services.AddDbContext<ICinemaContext, CinemaContext>(options => options.UseSqlServer(configuration.GetConnectionString("cinemaSqlServer")));
+            services.AddDbContext<ICinemaContext, CinemaContext>(options => options.UseSqlServer(configuration.GetConnectionString("tajamar")));
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
