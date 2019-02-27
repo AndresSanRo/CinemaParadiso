@@ -22,7 +22,9 @@ body {
 .carousel-inner .item img[src$=".svg"] {
     width: 100%;
 }
-
+#topNav {
+    background-image: linear-gradient(to bottom, rgb(52, 58, 64, 1), rgb(52, 58, 64, 0.8));
+}
 /* QR code generator */
 #qrCode {
     margin: 15px;
@@ -34,4 +36,6 @@ body {
     .carousel-caption {
         display: none;
     }
+}
+#topNav {
 }
