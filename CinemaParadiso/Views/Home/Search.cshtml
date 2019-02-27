@@ -1,16 +1,25 @@
-﻿@model List<DiscoverMovie>
-<div class="row">
-@foreach (DiscoverMovie movie in Model)
+﻿@model List<DiscoverMovie>;
+
+<h2>Busqueda: @ViewData["SEARCH"]</h2>
+@if (Model.FirstOrDefault() != null)
 {
-    if (movie.PosterPath != null)
-    {
-    <div class="col-lg-2">
-        <div class="card">
-            <a href="@Url.Action("Movie", "Home", new { id=movie.ID })">
-                <img class="card-img-top" src="@String.Concat(DiscoverMovie.ImagesPath, movie.PosterPath)" alt="@movie.Title">
-            </a>            
-        </div>
+    <div class="row">
+        @foreach (DiscoverMovie movie in Model)
+        {
+            if (movie.PosterPath != null)
+            {
+                <div class="col-lg-2">
+                    <div class="card">
+                        <a href="@Url.Action("Movie", "Home", new { id=movie.ID })">
+                            <img class="card-img-top" src="@String.Concat(DiscoverMovie.ImagesPath, movie.PosterPath)" alt="@movie.Title">
+                        </a>
+                    </div>
+                </div>
+            }
+        }
     </div>
-    }
-}            
-</div>
+}
+else
+{
+    <h1 class="text-center">No se encontraron resultados</h1>
+}
