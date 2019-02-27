@@ -1,10 +1,23 @@
 ﻿
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Login";   
 }
-
-<div class="row justify-content-lg-center">
-    <div class="col-lg-2">
+@section styles {
+    <style type="text/css">
+        .login {
+            display: inline;
+            position: absolute;
+            top: 50%;
+            right: 50% !important;
+            transform: translate(50%, -50%);
+        }
+    </style>
+}
+    <div class="login">
+        <h1 class="text-center">Cinema Paradiso</h1>
+        <img class="w-100" src="~/images/icons/popcorn256px.png" />
+        <hr />
+        @*<div class="col-lg-2">*@
         @using (Html.BeginForm("Login", "Validation", FormMethod.Post, new { @class = "mx-auto" }))
         {
             <h3 class="text-center">Correo electrónico</h3>
@@ -22,6 +35,6 @@
                 </div>
             }
         }
-    </div>
-</div>         
+        @*</div>*@
+    </div>         
 
