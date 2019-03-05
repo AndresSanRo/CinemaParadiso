@@ -65,5 +65,17 @@ namespace CinemaParadiso.Repositories
                         select data;
             return query.ToList();
         }
+
+        public void RegisterUser(string email, string pass, string name, string lastName, int? age)
+        {
+            Cinephile newUser = new Cinephile();
+            newUser.Email = email;
+            newUser.Password = pass;
+            newUser.Name = name;
+            newUser.LastName = lastName;
+            newUser.Age = age.GetValueOrDefault();
+            context.Cinephiles.Add(newUser);
+            context.SaveChanges();
+        }
     }
 }

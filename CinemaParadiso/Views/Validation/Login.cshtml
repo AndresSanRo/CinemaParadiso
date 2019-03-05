@@ -16,8 +16,7 @@
     <div class="login">
         <h1 class="text-center">Cinema Paradiso</h1>
         <img class="w-100" src="~/images/icons/popcorn256px.png" />
-        <hr />
-        @*<div class="col-lg-2">*@
+        <hr />        
         @using (Html.BeginForm("Login", "Validation", FormMethod.Post, new { @class = "mx-auto" }))
         {
             <h3 class="text-center">Correo electrónico</h3>
@@ -28,13 +27,11 @@
 
             <button class="btn btn-danger form-control mt-4" type="submit">Iniciar sesión</button>
             <h4 class="text-center mt-4">¿Aun no tienes cuenta?</h4>
-            @using (Html.BeginForm("Register", "Validation", FormMethod.Get, new { @class = "mx-auto" }))
-            {
-                <div>
-                    <button class="btn btn-danger form-control" type="submit">Registrate</button>
-                </div>
-            }
-        }
-        @*</div>*@
+            
+            <div>
+                @Html.ActionLink("Registrate", "Register", "Validation", null, new { @class= "btn btn-danger form-control" })                
+            </div>
+            
+        }        
     </div>         
 

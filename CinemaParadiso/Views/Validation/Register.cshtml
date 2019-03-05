@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewData["Title"] = "Register";
+}
+@section styles {
+    <style type="text/css">
+        .register {
+            display: inline;
+            position: absolute;
+            top: 50%;
+            right: 50% !important;
+            transform: translate(50%, -50%);
+        }
+    </style>
+}
+<div class="register">
+
+</div>
+<div class="container h-100">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-6">
+                <h1 class="text-center">Cinema Paradiso</h1>
+                <img class="mx-auto d-block" src="~/images/icons/popcorn256px.png" />
+                @*Email*@
+                <div class="form-group mt-5">
+                    <h3 class="text-center" for="formGroupExampleInput">Correo electrónico*</h3>
+                    <input type="email" name="email" class="form-control" placeholder="Email" required>
+                </div>
+            </div>
+
+        </div>
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-3">
+                @*Contraseña*@
+                <div class="form-group">
+                    <h3 class="text-center" for="formGroupExampleInput2">Contraseña*</h3>
+                    <input type="password" name="pass" class="form-control" placeholder="Contraseña" required>
+                </div>
+            </div>
+            <div class="col-3">
+                @*Repetir*@
+                <div class="form-group">
+                    <h3 class="text-center" for="formGroupExampleInput2">Repetir contraseña*</h3>
+                    <input type="password" name="rPass" class="form-control" placeholder="Repetir" required>
+                </div>
+            </div>
+        </div>
+        <div class="row h-100 justify-content-center align-items-center">
+            <h2 style="color:red">@ViewData["ERROR"]</h2>
+        </div>
+        <div class="row h-100 justify-content-center align-items-center mt-5">
+            <div class="col-2">
+                @*Nombre*@
+                <div class="form-group">
+                    <h3 class="text-center" for="formGroupExampleInput2">Nombre</h3>
+                    <input type="text" name="name" class="form-control" placeholder="Nombre">
+                </div>
+            </div>
+            <div class="col-2">
+                @*Apellidos*@
+                <div class="form-group">
+                    <h3 class="text-center" for="formGroupExampleInput2">Apellidos</h3>
+                    <input type="text" name="lastName" class="form-control" placeholder="Apellidos">
+                </div>
+            </div>
+            <div class="col-2">
+                @*Edad*@
+                <div class="form-group">
+                    <h3 class="text-center" for="formGroupExampleInput2">Edad</h3>
+                    <input type="text" name="age" min="1" class="form-control" placeholder="Apellidos">
+                </div>
+            </div>
+        </div>
+        <div class="row h-100 justify-content-center align-items-center mt-5">
+            <div class="col-6">
+                <button class="btn btn-danger form-control" type="submit">Crear cuenta</button>
+            </div>
+        </div>
+        }
+    </div>

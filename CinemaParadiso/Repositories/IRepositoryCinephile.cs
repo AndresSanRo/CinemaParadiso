@@ -13,5 +13,6 @@ namespace CinemaParadiso.Repositories
         void AddMovieToList(int idMovie, String user);
         void RemoveMovieFromList(int idMovie, String user);
         List<Lists> GetUserList(String user);
+        void RegisterUser(String email, String pass, String name, String lastName, int? age);
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using CinemaParadiso.Filters;
+using CinemaParadiso.Models;
 using CinemaParadiso.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -51,6 +52,23 @@ namespace CinemaParadiso.Controllers
         public IActionResult Register()
         {
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Register(string email, string pass, string rPass, string name, string lastName, int? age)
+        {
+            if (email is null || pass is null || rPass is null)
+            {
+                ViewData["ERROR"] = "Rellena los campos obligatorios";
+                return View();
+            }
+            if (!pass.Equals(rPass))
+            {
+                ViewData["ERROR"] = "Las contraseñas deben coincidir";
+                return View();
+            }            
+            repo.RegisterUser(email, pass, name, lastName, age.GetValueOrDefault());
+            return RedirectToAction("Login");
         }
     }
 }
