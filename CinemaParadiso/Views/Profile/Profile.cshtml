@@ -1,0 +1,76 @@
+﻿@model Cinephile
+@{
+    ViewData["Title"] = "Profile";
+    String userImg;
+    if (@Model.Image != null)
+    {
+        userImg = Model.Image;
+    }
+    else
+    {
+        userImg = "popcorn512px.png";
+    }
+    List<Movie> userList = ViewData["LIST"] as List<Movie>;
+}
+@section styles
+{
+    <style type="text/css">
+        .cineImg {
+            display: inline-block;
+            width: 10em;
+            height: 10em;
+            border-radius: 50%;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-image: url('@Url.Content("~/images/cinephilesimages/" + userImg)');
+        }
+    </style>
+    <link href="~/css/userProfile.css" rel="stylesheet" />
+}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>Tu perfil</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="cineImg">
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <h2>Email</h2>
+            @Model.Email
+        </div>
+        <div class="col-lg-3">
+            <h2>Nombre</h2>
+            @Model.Name
+        </div>
+        <div class="col-lg-3">
+            <h2>Apellidos</h2>
+            @Model.LastName
+        </div>
+        <div class="col-lg-3">
+            <h2>Edad</h2>
+            @Model.Age
+        </div>
+    </div>
+    <div>
+        <h2>Mi lista</h2>
+        <div class="d-flex flex-fill" id="listScroll">
+            @foreach (Movie movie in userList)
+            {
+
+                <a href="@Url.Action("Movie", "Home", new { id=movie.ID })">
+                    <img class="thumbnail" src="@String.Concat(Movie.ImagesPath, movie.Poster)" alt="@movie.Title">
+                </a>
+
+            }
+        </div>
+    </div>
+</div>
+

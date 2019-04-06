@@ -65,7 +65,10 @@ namespace CinemaParadiso.Repositories
                         select data;
             return query.ToList();
         }
-
+        public Cinephile GetUser(String user)
+        {
+            return context.Cinephiles.SingleOrDefault(z => z.Email.Equals(user));
+        }
         public void RegisterUser(string email, string pass, string name, string lastName, int? age)
         {
             Cinephile newUser = new Cinephile();
