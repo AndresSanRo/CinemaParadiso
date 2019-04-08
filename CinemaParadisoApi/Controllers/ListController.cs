@@ -41,7 +41,7 @@ namespace CinemaParadisoApi.Controllers
         {
             repo.AddMovieToList(list.IdMovie, list.UserEmail);
         }
-        [HttpDelete]
+        [HttpPost]
         [Route("RemoveMovieFromList")]
         public void RemoveMovieFromList([FromBody] Lists list)
         {
