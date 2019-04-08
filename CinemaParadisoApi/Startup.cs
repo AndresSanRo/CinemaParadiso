@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CinemaParadisoApi.Data;
+using CinemaParadisoApi.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +28,7 @@ namespace CinemaParadisoApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ICinemaContext, CinemaContext>(options => options.UseSqlServer(configuration.GetConnectionString("azureSqlServer")));
+            services.AddTransient<IRepositoryCinephile, RepositoryCinephile>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
