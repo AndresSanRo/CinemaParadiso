@@ -3,16 +3,48 @@ using CinemaParadiso.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Net;
+using Newtonsoft.Json.Linq;
 
 namespace CinemaParadiso.Repositories
 {
     public class RepositoryCinephile : IRepositoryCinephile
-    {
-        ICinemaContext context;
-        public RepositoryCinephile(ICinemaContext context)
+    {        
+        String uriApi;
+        MediaTypeWithQualityHeaderValue headerJson;
+        String token;
+        public RepositoryCinephile()
+        {            
+            uriApi = "https://cinemaparadisoapiasr.azurewebsites.net/";
+            headerJson = new MediaTypeWithQualityHeaderValue("application/json");
+        }
+        public async Task<T> CallApi<T>(String peticion)
         {
-            this.context = context;
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(this.uriApi);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(headerJson);
+                if (token != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
+                }
+                HttpResponseMessage response = await client.GetAsync(peticion);
+                if (response.IsSuccessStatusCode)
+                {
+                    T datos = await response.Content.ReadAsAsync<T>();
+                    return (T)Convert.ChangeType(datos, typeof(T));
+                }
+                else
+                {
+                    return default(T);
+                }
+            }
         }
         /// <summary>
         /// Checks if a login request is valid.
@@ -20,56 +52,95 @@ namespace CinemaParadiso.Repositories
         /// <param name="user">String. User´s email.</param>
         /// <param name="password">String. User´s password.</param>
         /// <returns></returns>
-        public bool Login(String user, String password)
+        public async Task<bool> Login(String user, String password)
+        {            
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(this.uriApi);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(headerJson);                                
+                Login log = new Login(user, password);                
+                String json = JsonConvert.SerializeObject(log);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync("api/Auth/Login", content);
+                if ((int)response.StatusCode != 200)
+                    return false;
+                else
+                {
+                    String data = await response.Content.ReadAsStringAsync();
+                    var jObject = JObject.Parse(data);
+                    this.token = jObject.GetValue("response").ToString();                    
+                    return true;
+                }
+            }
+        }
+        public async Task<bool> CheckInList(int idMovie, String user)
         {
-            Cinephile cineUser = (from data in context.Cinephiles
-                        where data.Email.Equals(user)
-                        && data.Password.Equals(password)
-                        select data).FirstOrDefault();
-            if (cineUser != null)            
+            //Lists query = (from data in context.Lists
+            //              where data.IdMovie.Equals(idMovie)
+            //              && data.UserEmail.Equals(user)
+            //              select data).FirstOrDefault();
+            //if (query != null)
+            //    return true;
+            //else
+            //    return false;
+            HttpStatusCode status = await CallApi<HttpStatusCode>("api/List/CheckInList?idMovie=" + idMovie + "&user=" + user);
+            if (status.Equals(HttpStatusCode.OK))
                 return true;
             else
                 return false;
         }
-        public bool CheckInList(int idMovie, String user)
-        {
-            Lists query = (from data in context.Lists
-                          where data.IdMovie.Equals(idMovie)
-                          && data.UserEmail.Equals(user)
-                          select data).FirstOrDefault();
-            if (query != null)
-                return true;
-            else
-                return false;
-        }
-        public void AddMovieToList(int idMovie, String user)
+        public async Task AddMovieToList(int idMovie, String user)
         {
             Lists movie = new Lists();
             movie.IdMovie = idMovie;
             movie.UserEmail = user;
-            context.Lists.Add(movie);
-            context.SaveChanges();
+            //context.Lists.Add(movie);
+            //context.SaveChanges();
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(this.uriApi);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(headerJson);
+                if (token != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
+                }
+                String json = JsonConvert.SerializeObject(movie);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync("api/List/AddMovieToList/", content);
+            }
         }
-        public void RemoveMovieFromList(int idMovie, String user)
+        public async Task RemoveMovieFromList(int idMovie, String user)
         {
             Lists movie = new Lists();
             movie.IdMovie = idMovie;
             movie.UserEmail = user;
-            context.Lists.Remove(movie);
-            context.SaveChanges();
+            //context.Lists.Remove(movie);
+            //context.SaveChanges();
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(this.uriApi);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(headerJson);
+                if (token != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
+                }
+                String json = JsonConvert.SerializeObject(movie);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync("api/List/RemoveMovieFromList/", content);
+            }
         }
-        public List<Lists> GetUserList(String user)
+        public async Task<List<Lists>> GetUserList(String user)
         {
-            var query = from data in context.Lists
-                        where data.UserEmail.Equals(user)
-                        select data;
-            return query.ToList();
+            return await CallApi<List<Lists>>("api/List/GetUserList?user=" + user);
         }
-        public Cinephile GetUser(String user)
+        public async Task<Cinephile> GetUser(String user)
         {
-            return context.Cinephiles.SingleOrDefault(z => z.Email.Equals(user));
+            return await CallApi<Cinephile>("api/Cinephile/" + user);
         }
-        public void RegisterUser(string email, string pass, string name, string lastName, int? age)
+        public async Task RegisterUser(string email, string pass, string name, string lastName, int? age)
         {
             Cinephile newUser = new Cinephile();
             newUser.Email = email;
@@ -77,8 +148,15 @@ namespace CinemaParadiso.Repositories
             newUser.Name = name;
             newUser.LastName = lastName;
             newUser.Age = age.GetValueOrDefault();
-            context.Cinephiles.Add(newUser);
-            context.SaveChanges();
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(this.uriApi);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(headerJson);                
+                String json = JsonConvert.SerializeObject(newUser);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync("api/Cinephile/", content);                
+            }
         }
     }
 }

@@ -28,11 +28,11 @@ namespace CinemaParadiso.Controllers
             return View();            
         }
 
-        public IActionResult Movie(int id)
+        public async Task<IActionResult> Movie(int id)
         {
             Movie movie = client.GetMovie(id).Result;
             ViewData["INLIST"] = "No";
-            if (HttpContext.User.Identity.IsAuthenticated && repo.CheckInList(movie.ID, HttpContext.User.Identity.Name))
+            if (HttpContext.User.Identity.IsAuthenticated && await repo.CheckInList(movie.ID, HttpContext.User.Identity.Name))
             {                
                 ViewData["INLIST"] = "Yes";              
             }                        
@@ -41,7 +41,7 @@ namespace CinemaParadiso.Controllers
         [UserAuthorize]
         public async Task<IActionResult> UserList()
         {
-            List<Lists> listMovies = repo.GetUserList(HttpContext.User.Identity.Name);
+            List<Lists> listMovies = await repo.GetUserList(HttpContext.User.Identity.Name);
             List<Movie> movies = new List<Movie>();
             if (listMovies != null)
             {                

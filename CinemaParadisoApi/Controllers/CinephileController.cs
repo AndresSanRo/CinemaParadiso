@@ -19,8 +19,9 @@ namespace CinemaParadisoApi.Controllers
         {
             this.repo = repo;
         }
-        [HttpGet("{id}")]
         [Authorize]
+        [HttpGet]
+        [Route("{id}")]
         public Cinephile Get(String id)
         {
             Cinephile user = repo.GetUser(id);

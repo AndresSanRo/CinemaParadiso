@@ -20,9 +20,8 @@ namespace CinemaParadiso.Controllers
         }
         public async Task<IActionResult> Profile()
         {
-            Cinephile user = repo.GetUser(HttpContext.User.Identity.Name);
-            user.Password = null;
-            List<Lists> listMovies = repo.GetUserList(HttpContext.User.Identity.Name);
+            Cinephile user = await repo.GetUser(HttpContext.User.Identity.Name);            
+            List<Lists> listMovies = await repo.GetUserList(HttpContext.User.Identity.Name);
             List<Movie> movies = new List<Movie>();
             if (listMovies != null)
             {

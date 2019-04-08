@@ -29,7 +29,7 @@ namespace CinemaParadiso
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<MovieClient>();            
-            services.AddTransient<IRepositoryCinephile, RepositoryCinephile>();            
+            services.AddSingleton<IRepositoryCinephile, RepositoryCinephile>();            
             //services.AddDbContext<ICinemaContext, CinemaContext>(options => options.UseSqlServer(configuration.GetConnectionString("azureSqlServer")));
             services.Configure<CookiePolicyOptions>(options =>
             {

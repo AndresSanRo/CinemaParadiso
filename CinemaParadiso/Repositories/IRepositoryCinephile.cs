@@ -8,12 +8,13 @@ namespace CinemaParadiso.Repositories
 {
     public interface IRepositoryCinephile
     {
-        bool Login(String user, String password);
-        bool CheckInList(int idMovie, String user);
-        void AddMovieToList(int idMovie, String user);
-        void RemoveMovieFromList(int idMovie, String user);
-        List<Lists> GetUserList(String user);
-        void RegisterUser(String email, String pass, String name, String lastName, int? age);
-        Cinephile GetUser(String user);
+        Task<T> CallApi<T>(String peticion);
+        Task<bool> Login(String user, String password);
+        Task<bool> CheckInList(int idMovie, String user);
+        Task AddMovieToList(int idMovie, String user);
+        Task RemoveMovieFromList(int idMovie, String user);
+        Task<List<Lists>> GetUserList(String user);
+        Task RegisterUser(String email, String pass, String name, String lastName, int? age);
+        Task<Cinephile> GetUser(String user);
     }
 }

@@ -27,7 +27,7 @@ namespace CinemaParadiso.Controllers
         public async Task<IActionResult> Login(String user, String password)
         {
             //Aqui se comprueban los usuarios (BBDD)
-            if (repo.Login(user, password))
+            if (await repo.Login(user, password))
             {
                 //Creamos la identidad
                 ClaimsIdentity identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, null);                

@@ -6,23 +6,14 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace CinemaParadiso.Models
-{
-    [Table("CINEPHILES")]
+{    
     public class Cinephile
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Column("EMAIL")]
-        public String Email { get; set; }
-        [Column("PASSWORDHASH")]
-        public String Password { get; set; }
-        [Column("CINENAME")]
-        public String Name { get; set; }
-        [Column("CINELASTNAME")]
-        public String LastName { get; set; }
-        [Column("AGE")]
-        public int Age { get; set; }
-        [Column("CINEIMAGE")]
+    {        
+        public String Email { get; set; }        
+        public String Password { get; set; }        
+        public String Name { get; set; }        
+        public String LastName { get; set; }        
+        public int Age { get; set; }        
         public String Image { get; set; }
     }
 }
