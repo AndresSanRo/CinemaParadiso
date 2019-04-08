@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CinemaParadisoApi.Models;
 using CinemaParadisoApi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@ namespace CinemaParadisoApi.Controllers
             this.repo = repo;
         }
         [HttpGet("{id}")]
+        [Authorize]
         public Cinephile Get(String id)
         {
             Cinephile user = repo.GetUser(id);

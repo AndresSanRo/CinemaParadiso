@@ -20,16 +20,16 @@ namespace CinemaParadisoApi.Repositories
         /// <param name="user">String. User´s email.</param>
         /// <param name="password">String. User´s password.</param>
         /// <returns></returns>
-        public bool Login(String user, String password)
+        public Cinephile Login(String user, String password)
         {
             Cinephile cineUser = (from data in context.Cinephiles
                         where data.Email.Equals(user)
                         && data.Password.Equals(password)
                         select data).FirstOrDefault();
             if (cineUser != null)            
-                return true;
+                return cineUser;
             else
-                return false;
+                return null;
         }
         public bool CheckInList(int idMovie, String user)
         {

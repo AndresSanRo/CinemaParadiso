@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CinemaParadisoApi.Data;
 using CinemaParadisoApi.Repositories;
+using CinemaParadisoApi.Token;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,8 +28,10 @@ namespace CinemaParadisoApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            HelperToken helperToken = new HelperToken(this.configuration);
             services.AddDbContext<ICinemaContext, CinemaContext>(options => options.UseSqlServer(configuration.GetConnectionString("azureSqlServer")));
             services.AddTransient<IRepositoryCinephile, RepositoryCinephile>();
+            services.AddAuthentication(helperToken.GetAuthOptions()).AddJwtBearer(helperToken.GetJwtOptions());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -45,6 +48,7 @@ namespace CinemaParadisoApi
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

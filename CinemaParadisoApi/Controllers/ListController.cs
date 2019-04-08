@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CinemaParadisoApi.Models;
 using CinemaParadisoApi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,7 @@ namespace CinemaParadisoApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ListController : ControllerBase
     {
         IRepositoryCinephile repo;
@@ -19,7 +21,7 @@ namespace CinemaParadisoApi.Controllers
             this.repo = repo;
         }
         [HttpGet]
-        [Route("GetUserList")]
+        [Route("GetUserList")]        
         public List<Lists> GetUserList([FromQuery]String user)
         {
             return repo.GetUserList(user);
