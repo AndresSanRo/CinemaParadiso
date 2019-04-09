@@ -32,10 +32,14 @@ namespace CinemaParadiso.Controllers
         public async Task<IActionResult> Movie(int id)
         {
             Movie movie = client.GetMovie(id).Result;
-            ViewData["INLIST"] = "No";
-            if (HttpContext.User.Identity.IsAuthenticated && await repo.CheckInList(movie.ID, HttpContext.User.Identity.Name))
-            {                
-                ViewData["INLIST"] = "Yes";              
+            ViewData["INLIST"] = "No";            
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                this.repo.token = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                if (await repo.CheckInList(movie.ID, HttpContext.User.Identity.Name))
+                {
+                    ViewData["INLIST"] = "Yes";
+                }                
             }                        
             return View(movie);
         }

@@ -76,19 +76,26 @@ namespace CinemaParadiso.Repositories
         }
         public async Task<bool> CheckInList(int idMovie, String user)
         {
-            //Lists query = (from data in context.Lists
-            //              where data.IdMovie.Equals(idMovie)
-            //              && data.UserEmail.Equals(user)
-            //              select data).FirstOrDefault();
-            //if (query != null)
-            //    return true;
-            //else
-            //    return false;
-            HttpStatusCode status = await CallApi<HttpStatusCode>("api/List/CheckInList?idMovie=" + idMovie + "&user=" + user);
-            if (status.Equals(HttpStatusCode.OK))
-                return true;
-            else
-                return false;
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(this.uriApi);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(headerJson);
+                if (token != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
+                }
+                HttpResponseMessage response = await client.GetAsync("api/List/CheckInList?idMovie=" + idMovie + "&user=" + user);
+                if (response.StatusCode.Equals(HttpStatusCode.OK))
+                    return true;
+                else if (response.StatusCode.Equals(HttpStatusCode.Unauthorized))                
+                    return false;                
+                else if (response.StatusCode.Equals(HttpStatusCode.NotFound))                
+                    return false;                
+                else                
+                    return false;                
+            }
+            //HttpStatusCode status = await CallApi<HttpStatusCode>("api/List/CheckInList?idMovie=" + idMovie + "&user=" + user);                            
         }
         public async Task AddMovieToList(int idMovie, String user)
         {
