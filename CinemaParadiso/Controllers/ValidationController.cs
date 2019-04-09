@@ -26,13 +26,12 @@ namespace CinemaParadiso.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(String user, String password)
         {
-            //Aqui se comprueban los usuarios (BBDD)
-            if (await repo.Login(user, password))
-            {
-                //Creamos la identidad
+            String token = await repo.Login(user, password);            
+            if (token != null)
+            {                
                 ClaimsIdentity identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, null);                
                 identity.AddClaim(new Claim(ClaimTypes.Name, user));                
-                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user));
+                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, token));
                 ClaimsPrincipal principal = new ClaimsPrincipal(identity);
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,

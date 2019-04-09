@@ -11,6 +11,7 @@ using CinemaParadiso.Providers;
 using CinemaParadiso.Data;
 using CinemaParadiso.Repositories;
 using CinemaParadiso.Filters;
+using System.Security.Claims;
 
 namespace CinemaParadiso.Controllers
 {
@@ -20,7 +21,7 @@ namespace CinemaParadiso.Controllers
         IRepositoryCinephile repo;
         public HomeController(MovieClient client, IRepositoryCinephile repo)
         {
-            this.client = client;
+            this.client = client;            
             this.repo = repo;
         }
         public IActionResult Index()
@@ -41,6 +42,7 @@ namespace CinemaParadiso.Controllers
         [UserAuthorize]
         public async Task<IActionResult> UserList()
         {
+            this.repo.token = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             List<Lists> listMovies = await repo.GetUserList(HttpContext.User.Identity.Name);
             List<Movie> movies = new List<Movie>();
             if (listMovies != null)
@@ -66,6 +68,7 @@ namespace CinemaParadiso.Controllers
         [UserAuthorize]
         public IActionResult AddToList(int idMovie)
         {
+            this.repo.token = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             Movie movie = client.GetMovie(idMovie).Result;
             String user = HttpContext.User.Identity.Name;
             repo.AddMovieToList(idMovie, user);
@@ -75,6 +78,7 @@ namespace CinemaParadiso.Controllers
         [UserAuthorize]
         public IActionResult RemoveFromList(int idMovie)
         {
+            this.repo.token = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             Movie movie = client.GetMovie(idMovie).Result;
             String user = HttpContext.User.Identity.Name;            
             repo.RemoveMovieFromList(idMovie, user);
