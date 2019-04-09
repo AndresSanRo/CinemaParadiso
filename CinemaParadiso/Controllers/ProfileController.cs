@@ -6,6 +6,7 @@ using CinemaParadiso.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using CinemaParadiso.Models;
 using CinemaParadiso.Data;
+using System.Security.Claims;
 
 namespace CinemaParadiso.Controllers
 {
@@ -15,11 +16,12 @@ namespace CinemaParadiso.Controllers
         MovieClient client;
         public ProfileController(IRepositoryCinephile repo, MovieClient client)
         {
-            this.repo = repo;
+            this.repo = repo;            
             this.client = client;
         }
         public async Task<IActionResult> Profile()
         {
+            this.repo.token = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             Cinephile user = await repo.GetUser(HttpContext.User.Identity.Name);            
             List<Lists> listMovies = await repo.GetUserList(HttpContext.User.Identity.Name);
             List<Movie> movies = new List<Movie>();

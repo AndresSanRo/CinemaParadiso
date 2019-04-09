@@ -17,11 +17,11 @@ namespace CinemaParadiso.Repositories
     {        
         String uriApi;
         MediaTypeWithQualityHeaderValue headerJson;
-        String token;
+        public String token { get; set; }
         public RepositoryCinephile()
         {            
             uriApi = "https://cinemaparadisoapiasr.azurewebsites.net/";
-            headerJson = new MediaTypeWithQualityHeaderValue("application/json");
+            headerJson = new MediaTypeWithQualityHeaderValue("application/json");            
         }
         public async Task<T> CallApi<T>(String peticion)
         {
@@ -52,7 +52,7 @@ namespace CinemaParadiso.Repositories
         /// <param name="user">String. User´s email.</param>
         /// <param name="password">String. User´s password.</param>
         /// <returns></returns>
-        public async Task<bool> Login(String user, String password)
+        public async Task<String> Login(String user, String password)
         {            
             using (HttpClient client = new HttpClient())
             {
@@ -64,13 +64,13 @@ namespace CinemaParadiso.Repositories
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync("api/Auth/Login", content);
                 if ((int)response.StatusCode != 200)
-                    return false;
+                    return null;
                 else
                 {
                     String data = await response.Content.ReadAsStringAsync();
                     var jObject = JObject.Parse(data);
-                    this.token = jObject.GetValue("response").ToString();                    
-                    return true;
+                    return jObject.GetValue("response").ToString();                    
+                    
                 }
             }
         }
