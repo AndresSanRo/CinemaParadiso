@@ -23,6 +23,12 @@ namespace CinemaParadiso.Repositories
             uriApi = "https://cinemaparadisoapiasr.azurewebsites.net/";
             headerJson = new MediaTypeWithQualityHeaderValue("application/json");            
         }
+        /// <summary>
+        /// Llamada genérica a la API de usuarios
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="peticion">EL string con la peticion</param>
+        /// <returns>El contenido de la llamada</returns>
         public async Task<T> CallApi<T>(String peticion)
         {
             using (HttpClient client = new HttpClient())
@@ -47,10 +53,10 @@ namespace CinemaParadiso.Repositories
             }
         }
         /// <summary>
-        /// Checks if a login request is valid.
+        /// Hace la peticion de login en la API.
         /// </summary>
-        /// <param name="user">String. User´s email.</param>
-        /// <param name="password">String. User´s password.</param>
+        /// <param name="user">String. El email del usuario.</param>
+        /// <param name="password">String. La password del usuario.</param>
         /// <returns></returns>
         public async Task<String> Login(String user, String password)
         {            
@@ -74,6 +80,12 @@ namespace CinemaParadiso.Repositories
                 }
             }
         }
+        /// <summary>
+        /// Comprueba si una pelicula está en la lista de un usuario
+        /// </summary>
+        /// <param name="idMovie">int. El id de la pelicula.</param>
+        /// <param name="user">String. </param>
+        /// <returns></returns>
         public async Task<bool> CheckInList(int idMovie, String user)
         {
             using (HttpClient client = new HttpClient())
@@ -97,6 +109,12 @@ namespace CinemaParadiso.Repositories
             }
             //HttpStatusCode status = await CallApi<HttpStatusCode>("api/List/CheckInList?idMovie=" + idMovie + "&user=" + user);                            
         }
+        /// <summary>
+        /// Añade una pelicula a la lista del usuario
+        /// </summary>
+        /// <param name="idMovie">int. El id de la pelicula</param>
+        /// <param name="user">String. El email del usuario</param>
+        /// <returns></returns>
         public async Task AddMovieToList(int idMovie, String user)
         {
             Lists movie = new Lists();
@@ -118,6 +136,12 @@ namespace CinemaParadiso.Repositories
                 HttpResponseMessage response = await client.PostAsync("api/List/AddMovieToList/", content);
             }
         }
+        /// <summary>
+        /// Elimina una pelicula de la lista de un usuario
+        /// </summary>
+        /// <param name="idMovie">int. El id de la pelicula</param>
+        /// <param name="user">String. El email del usuario</param>
+        /// <returns></returns>
         public async Task RemoveMovieFromList(int idMovie, String user)
         {
             Lists movie = new Lists();
@@ -139,6 +163,11 @@ namespace CinemaParadiso.Repositories
                 HttpResponseMessage response = await client.PostAsync("api/List/RemoveMovieFromList/", content);
             }
         }
+        /// <summary>
+        /// Obtiene la lista de peliculas de un usuario.
+        /// </summary>
+        /// <param name="user">String. El email del usuario</param>
+        /// <returns></returns>
         public async Task<List<Lists>> GetUserList(String user)
         {
             return await CallApi<List<Lists>>("api/List/GetUserList?user=" + user);
